@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class GuessingGame {
+public class Testing1 {
 
 	
 	
@@ -8,9 +8,8 @@ public class GuessingGame {
 		Scanner inputScanner = new Scanner(System.in);
 		int replay = 1;
 		int level = 0;
-		int gamesPlayed = 0;
-		int[] scoreHistory = new int[50];
 		
+		int[] scoreHistory = new int[1];
 		
 		System.out.println("Guessing Game");
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -27,66 +26,57 @@ public class GuessingGame {
 		}
 		
 		while(replay == 1) {
-			gamesPlayed++;
-			if(gamesPlayed > 40) {
-				System.out.println("You should probably stop now.");
-			}
-			System.out.println("The number is between 1 and " + (int)Math.pow(10, level)); 
+			
+			
+			System.out.println("The number is between 1.0 and " + Math.pow(10, level)); 
 			int target = (int)(Math.random() * Math.pow(10, level)) + 1;
-			int counter = 0;
-			int guess = 0;
 			int gameScore = 0;
+			int guess = 0;
 			
 			String rangeHint = "";
 			while(target != guess) {
-				gameScore++;
-				
-				if(guess > target && counter != 0) {
+				if(guess > target && gameScore != 0) {
 					rangeHint = "Your number is too high. ";
 				}
-				else if(guess < target && counter != 0) {
+				else if(guess < target && gameScore != 0) {
 					rangeHint = "Your number is too low. ";
 				}
 				System.out.print(rangeHint + "Guess a number: ");
 				guess = (int)inputScanner.nextInt();
-				counter++;
+				gameScore++;
+				
+				scoreHistory[scoreHistory.length - 1] = gameScore;
 			}
-			
-			scoreHistory[gamesPlayed - 1] = gameScore;
-			
-			System.out.println("Nice! It took you " + counter + " guess(es) to guess the number " + target + ".");
+			System.out.println("Nice! It took you " + gameScore + " guess(es) to guess the number " + target + ".");
 			replay = 2;
 			while(replay != 1 && replay != 0) {
-				
-				
-				System.out.println("Play the level again?"); 
-				System.out.println("Enter the number \"1\" to play again. Enter the number \"0\" to end the game and see your scores: ");
+				System.out.print("Play the level again? Enter the number \"1\" to play again: ");
 				replay = inputScanner.nextInt();
-				if(replay == 0) {
-					System.out.print("Your scores are ");
-					printArr(scoreHistory);
+				if (replay == 1) {
+					int[] temp = new int[scoreHistory.length + 1];
+					for(int i = 0; i < scoreHistory.length; i++) {
+						temp[i] = scoreHistory[i];
+					}
+					scoreHistory = temp;
+					
 				}
+				if(replay == 0) {
+					printArr(scoreHistory);
+					System.out.println("Congratulations for playing!");
+					for(int i = 0; i < scoreHistory.length; i++) {
+						System.out.println("Game " + (i + 1) + ": " + scoreHistory[i] + " guesses.");
+					}
+				}
+				
 			}
-			
 		}
-		
 	}
 	
 	public static void printArr(int[] numbers) {
-		
 		for(int i = 0; i < numbers.length; i++) {
-			int nonZero = 0;
-			if(numbers[i] != 0) {
-				nonZero++;
-				System.out.print(numbers[i]);
-			
-				if(i < nonZero && i != 0) {
-					System.out.print(", ");
-				}
-				else {
-					System.out.print(".");
-					
-				}
+			System.out.print(numbers[i]);
+			if(i != numbers.length - 1) {
+				System.out.print(", ");
 			}
 		}
 		System.out.println();
