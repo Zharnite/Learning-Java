@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class GuessingGame {
+public class GuessingGamev1 {
 
 	
 	
@@ -50,37 +50,17 @@ public class GuessingGame {
 			System.out.println("Nice! It took you " + gameScore + " guess(es) to guess the number " + target + ".");
 			replay = 2;
 			while(replay != 1 && replay != 0) {
-				System.out.print("Play the level again? Enter the number \"1\" to play again or \"0\" to stop playing and see your scores: ");
+				System.out.print("Play the level again? Enter the number \"1\" to play again or \"0\" to stop playing: ");
 				replay = inputScanner.nextInt();
-				if (replay == 1) {
-					int[] temp = new int[scoreHistory.length + 1];
-					for(int i = 0; i < scoreHistory.length; i++) {
-						temp[i] = scoreHistory[i];
-					}
-					scoreHistory = temp;
+				
 					
 				}
-				if(replay == 0) {
-					printArr(scoreHistory);
-					System.out.println("Congratulations for playing!");
-					for(int i = 0; i < scoreHistory.length; i++) {
-						System.out.println("Game " + (i + 1) + ": " + scoreHistory[i] + " guesses.");
-					}
-				}
+				
 				
 			}
 		}
 	}
 	
-	public static void printArr(int[] numbers) {
-		for(int i = 0; i < numbers.length; i++) {
-			System.out.print(numbers[i]);
-			if(i != numbers.length - 1) {
-				System.out.print(", ");
-			}
-		}
-		System.out.println();
-	}
+
 	
 	
-}
