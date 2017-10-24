@@ -26,6 +26,13 @@ public class Test {
 		LinearEquation line1 = new LinearEquation(1, 1, 1); 
 		LinearEquation line2 = new LinearEquation(2, 4, 5); 
 		System.out.println(line1.pointOfIntersection(line2));
+		
+		LinearEquation line3 = new LinearEquation(2, 1, -4); 
+		LinearEquation line4 = new LinearEquation(1, 1, -7); 
+		Coords intersection = line3.pointOfIntersection(line4);
+		System.out.println(intersection);
+		
+		
 	}
 
 }

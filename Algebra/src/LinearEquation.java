@@ -19,6 +19,13 @@ public class LinearEquation {
 		this.c = other.c;
 	}
 	
+	//point slope constructor 
+	public LinearEquation(double slope, Coords point) {
+		a = -slope;
+		b = 1;
+		c = slope * point.getX() - point.getY();
+	}
+	
 	public String toString() {
 		return a + "x + " + b + "y + " + c + " = 0";
 	}
@@ -90,13 +97,39 @@ public class LinearEquation {
 		double e = other.b;
 		double f = other.c;
 		
-		double x = -(-f/e + c/b)/(-d/e + a/b);
-		double y = (-a/b)*x - c/b;
+		double x;
+		
+		if(this.isVertical()) 
+			x = -c/a;
+		else if(other.isVertical())
+			x = -f/d;
+		else
+			x = (b*f - c*e)/(a*e - b*d);
+		
+		double y = (-a/b)*x - (c/b);
 		
 		return new Coords(x, y);
 		
 	}
 	
+	public LinearEquation perpendicularLine(Coords point) {
+		if(this.isVertical()) {
+			return new LinearEquation(0, 1, -point.getX());
+		}
+		if(this.isHorizontal()) {
+			return new LinearEquation(1, 0, -point.getY());
+		}
+		
+		return new LinearEquation(-1/this.getSlope(), point);
+	}
+	
+	public double shortestDistanceFrom(Coords point) {
+		//LinearEquation perpendicular = this.perpendicularLine(point);
+		//Coords intersection =  this.pointOfIntersection(perpendicular);
+		//double distance = point.distanceFrom(intersection);
+		//return distance;
+		return point.distanceFrom(pointOfIntersection(perpendicularLine(point)));
+	}
 	
 	
 	
